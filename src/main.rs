@@ -12,7 +12,9 @@ fn process_user_input(expression: &str) -> f64 {
     } else if expression.contains('/') {
         '/'
     } else {
+        println!("No operator found in expression. Please enter another expression! ");
         panic!()
+        // process_user_input(&expression)
     };
 
     println!("Operator: {operator}");
@@ -92,12 +94,21 @@ fn main() {
         "Follow the format: '<number><operation><number>', e.g.: 1+5, \
         then hit Enter to see the result"
     );
+    println!("Press 'q' to quit. ");
 
-    let mut expression = String::new();
+    loop {
+        let mut expression = String::new();
 
-    io::stdin()
-        .read_line(&mut expression)
-        .expect("Failed to read the provided expression!");
+        io::stdin()
+            .read_line(&mut expression)
+            .expect("Failed to read the provided expression!");
 
-    process_user_input(&expression);
+        if expression.contains('q') {
+            break;
+        }
+
+        process_user_input(&expression);
+
+        println!("Enter another expression! ");
+    }
 }
